@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:background="@color/principal">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Filmes populares"
-            android:textColor="#031C26"
+            android:textColor="@color/letras"
             android:textSize="30dp"
             />
 

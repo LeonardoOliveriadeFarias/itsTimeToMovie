@@ -1,20 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.itsTimeToMovie.UI.DetalhesFilmeActivity">
+    tools:context="com.example.itsTimeToMovie.UI.DetalhesFilmeActivity"
+    android:background="@color/principal">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/Compartilhar_button"
+        android:layout_width="204dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/description_filme"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="91dp"
+        android:backgroundTint="#F2845C"
+        android:text="Compartilhar com um amigo"
+        android:textColor="@color/letras"
+        app:cornerRadius="26dp" />
 
     <TextView
-        android:id="@+id/text_filme_Title"
-        android:layout_width="wrap_content"
+        android:id="@+id/description_filme"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        tools:text = "Titulo do filme"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@id/text_filme_Title_Detail"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/letras"
+        android:textSize="20dp"
+        tools:text="description" />
+
+    <TextView
+        android:id="@+id/text_filme_Title_Detail"
+        android:layout_width="234dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagePoster_Detail"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="59dp"
+        android:padding="16dp"
+        android:textAlignment="center"
+        android:textColor="@color/letras"
+        android:textSize="25dp"
+        tools:text="teste" />
+
+    <ImageView
+        android:id="@+id/imagePoster_Detail"
+        android:layout_width="231dp"
+        android:layout_height="314dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="87dp"
+        android:scaleType="fitXY" />
+
+
+</RelativeLayout>

@@ -55,6 +55,7 @@ public class FilmeAdapter extends RecyclerView.Adapter<FilmeAdapter.CatalogoView
         private ImageView imagePoster;
         private Filme filme;
 
+
         public CatalogoViewHolder(@NonNull View itemView) {
             super(itemView);
 
