@@ -23,7 +23,7 @@ public class DetalhesFilmeActivity extends AppCompatActivity {
     public static final String EXTRA_FILME =  "EXTRA_FILME";
     private Button comp;
 
-
+    //coment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
