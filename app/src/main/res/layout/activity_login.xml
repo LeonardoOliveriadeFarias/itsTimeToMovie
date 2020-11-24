@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.LoginActivity"
+    android:background="@color/principal">
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/shojumaru"
+        android:layout_marginTop="45dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/letras"
+        android:textSize="30dp" />
+
+    <EditText
+        android:id="@+id/Login"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appName"
+        android:layout_marginTop="107dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/senha"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Login"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:ems="10"
+        android:hint="@string/Senha"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/BttmLogin"
+        android:layout_width="124dp"
+        android:layout_height="62dp"
+        android:layout_below="@id/senha"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/Button"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/Logar"
+        android:textAlignment="center"
+        android:textColor="@color/letras"
+        android:textSize="16dp"
+        app:cornerRadius="16dp" />
+
+    <Button
+        android:id="@+id/BttmCadastrar"
+        android:layout_width="140dp"
+        android:layout_height="62dp"
+        android:layout_toRightOf="@+id/BttmLogin"
+        android:layout_below="@+id/senha"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/Bttn"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/Cadastrar"
+        android:textSize="16dp"
+        app:cornerRadius="16dp" />
+
+    <ImageButton
+        android:id="@+id/BttmGoogle"
+        android:layout_width="250dp"
+        android:layout_height="46dp"
+        android:layout_below="@+id/BttmLogin"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:src="@drawable/imagesg" />
+
+</RelativeLayout>

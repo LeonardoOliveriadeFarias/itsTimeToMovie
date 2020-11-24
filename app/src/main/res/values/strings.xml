@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Its time to movie</string>
+    <string name="Email">Email</string>
+    <string name="Senha">Senha</string>
+    <string name="Logar">Logar</string>
+    <string name="Cadastrar">Cadastrar</string>
+    <string name="ConfirmSenha">Digite senha novamente</string>
+    <string name="DigiSenha">Digite a senha</string>
+    <string name="DigiEmail">Digite seu email</string>
+    <string name="Limpar">Limpar</string>
 </resources>

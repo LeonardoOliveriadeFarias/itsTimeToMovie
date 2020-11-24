@@ -15,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.itstimetomovie">
-        <activity android:name="com.example.itsTimeToMovie.UI.DetalhesFilmeActivity"></activity>
-        <activity android:name="com.example.itsTimeToMovie.UI.Catalogo"></activity>
+        <activity android:name=".UI.CadastrarActivity"></activity>
+        <activity android:name=".UI.LoginActivity" />
+        <activity android:name=".UI.DetalhesFilmeActivity" />
+        <activity android:name=".UI.Catalogo" />
         <activity android:name=".UI.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

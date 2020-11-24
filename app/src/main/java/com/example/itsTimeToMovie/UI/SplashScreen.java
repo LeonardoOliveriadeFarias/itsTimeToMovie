@@ -30,7 +30,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void open() {
-        Intent intent = new Intent(this, Catalogo.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1044093608028",
+    "firebase_url": "https://itstimetomovie.firebaseio.com",
+    "project_id": "itstimetomovie",
+    "storage_bucket": "itstimetomovie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044093608028:android:0f37fa2ca2fc2339aec699",
+        "android_client_info": {
+          "package_name": "com.example.itsTimeToMovie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044093608028-9smvditr5g7it2b9j7gm99qdk2900d4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.itsTimeToMovie",
+            "certificate_hash": "5e3d6ae3c0152a21ecfd8a21ad4f72279fdb6556"
+          }
+        },
+        {
+          "client_id": "1044093608028-ip03ua0l5a80askesoo120ikggud3tv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-JaP8hUC2VLOOaycQu3z5wQPIqfaev1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044093608028-ip03ua0l5a80askesoo120ikggud3tv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
