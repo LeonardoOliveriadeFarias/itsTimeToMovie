@@ -21,7 +21,7 @@
         android:textSize="30dp" />
 
     <EditText
-        android:id="@+id/Login"
+        android:id="@+id/editLogin"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/appName"
@@ -33,10 +33,10 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/senha"
+        android:id="@+id/editSenha"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Login"
+        android:layout_below="@+id/editLogin"
         android:layout_marginTop="40dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
@@ -48,7 +48,7 @@
         android:id="@+id/BttmLogin"
         android:layout_width="124dp"
         android:layout_height="62dp"
-        android:layout_below="@id/senha"
+        android:layout_below="@id/editSenha"
         android:layout_marginStart="25dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="@color/Button"
@@ -64,7 +64,7 @@
         android:layout_width="140dp"
         android:layout_height="62dp"
         android:layout_toRightOf="@+id/BttmLogin"
-        android:layout_below="@+id/senha"
+        android:layout_below="@+id/editSenha"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="25dp"

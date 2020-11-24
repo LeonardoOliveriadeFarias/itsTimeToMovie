@@ -3,6 +3,10 @@ package com.example.itsTimeToMovie.UI;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +45,7 @@ public class CadastrarActivity extends AppCompatActivity {
                 cadastrar();
             }
         });
+
         limparBttm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,17 +56,6 @@ public class CadastrarActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
     }
 
-   /* public void onClick(View v){
-        switch(v.getId()){
-            case R.id.cadastrar_novo:
-                cadastrar();
-                break;
-
-            case R.id.BttmLimpar:
-                limpar();
-                break;
-        }
-    }*/
 
     private void cadastrar(){
 
@@ -78,7 +72,14 @@ public class CadastrarActivity extends AppCompatActivity {
         }else {
 
             if(senha.contentEquals(confirmarSenha)){
-                criarUsuário(email,senha);
+
+                if(verificarInternet()){
+                    criarUsuário(email,senha);
+                }else {
+                    Toast.makeText(getBaseContext(),
+                            "Erro - Sem conexão com internet", Toast.LENGTH_LONG)
+                            .show();
+                }
 
             }else{
 
@@ -107,14 +108,56 @@ public class CadastrarActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(),
                                     "Cadastro efetuado com sucesso", Toast.LENGTH_LONG)
                                     .show();
+                            back();
 
                         }else{
 
-                            Toast.makeText(getBaseContext(),
-                                    "Erro ao cadastrar", Toast.LENGTH_LONG)
-                                    .show();
+                            String resposta = task.getException().toString();
+                            opcaoErro(resposta);
                         }
                     }
                 });
+    }
+
+    private void opcaoErro(String resposta){
+
+        if (resposta.contains("least 6 characters")){
+            Toast.makeText(getBaseContext(),
+                    "Sua senha deve ter no mínimo 6 caracteres", Toast.LENGTH_LONG)
+                    .show();
+        }else if (resposta.contains("address is badly")){
+            Toast.makeText(getBaseContext(),
+                    "E-mail inválido", Toast.LENGTH_LONG)
+                    .show();
+        }else if (resposta.contains("interrupted connection")){
+            Toast.makeText(getBaseContext(),
+                    "Sem conexão com Firebase", Toast.LENGTH_LONG)
+                    .show();
+        }else if (resposta.contains("address is already")){
+            Toast.makeText(getBaseContext(),
+                    "E-mail já cadastrado", Toast.LENGTH_LONG)
+                    .show();
+        }else {
+            Toast.makeText(getBaseContext(),
+                    resposta, Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    private void back(){
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private boolean verificarInternet(){
+
+        ConnectivityManager conexao = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo infoNet = conexao.getActiveNetworkInfo();
+
+        if(infoNet != null && infoNet.isConnected()){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
