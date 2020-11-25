@@ -21,7 +21,7 @@ public class FilmePopularPresenter implements CatalogoContract.FilmeListPresente
     }
 
     @Override
-    public void takeFilme() {
+    public void takePopulares() {
         ApiService.getInstance()
                 .obterFilmesPopulares("16b62a2397c0144943747e51552d1229")
                 .enqueue(new Callback<FilmesResult>() {
@@ -31,41 +31,41 @@ public class FilmePopularPresenter implements CatalogoContract.FilmeListPresente
                             final List<Filme> filmeList = FilmeMapper
                                     .responseToDomain(response.body().getResultadoFilmes());
 
-                            view.showFilme(filmeList);
+                            view.showPopulares(filmeList);
                         }else {
                             view.showError();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<FilmesResult> call, Throwable t) {
                         view.showError();
                     }
                 });
 
-        ApiService.getInstance()
-                .obterMaisAssistidos("16b62a2397c0144943747e51552d1229")
-                .enqueue(new Callback<FilmesResult>() {
-                    @Override
-                    public void onResponse(Call<FilmesResult> call, Response<FilmesResult> response) {
-                        if(response.isSuccessful()){
-                            final List<Filme> filmeList = FilmeMapper
-                                    .responseToDomain(response.body().getResultadoFilmes());
+        }
+        public void takeMaisVistos(){
+            ApiService.getInstance()
+                    .obterMaisAssistidos("16b62a2397c0144943747e51552d1229")
+                    .enqueue(new Callback<FilmesResult>() {
+                        @Override
+                        public void onResponse(Call<FilmesResult> call, Response<FilmesResult> response) {
+                            if(response.isSuccessful()){
+                                final List<Filme> filmeList = FilmeMapper
+                                        .responseToDomain(response.body().getResultadoFilmes());
 
-                            view.showFilme(filmeList);
-                        }else {
+                                view.showMaisVistos(filmeList);
+                            }else {
+                                view.showError();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<FilmesResult> call, Throwable t) {
                             view.showError();
                         }
-                    }
+                    });
+        }
 
-                    @Override
-                    public void onFailure(Call<FilmesResult> call, Throwable t) {
-                        view.showError();
-                    }
-                });
-
-
-            }
 
 
 

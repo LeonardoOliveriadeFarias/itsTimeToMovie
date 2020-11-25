@@ -41,7 +41,6 @@ public class FilmeAdapter extends RecyclerView.Adapter<FilmeAdapter.CatalogoView
     @Override
     public void onBindViewHolder(@NonNull CatalogoViewHolder holder, int position) {
         holder.bind(filmeList.get(position));
-
     }
 
     @Override

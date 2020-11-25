@@ -38,7 +38,8 @@ public class Catalogo extends AppCompatActivity
 
 
         presenter = new FilmePopularPresenter(this);
-        presenter.takeFilme();
+        presenter.takePopulares();
+        presenter.takeMaisVistos();
     }
 
     /*private void configToolbar(){
@@ -66,13 +67,18 @@ public class Catalogo extends AppCompatActivity
     }
 
     @Override
-    public void showFilme(List<Filme> filmeList) {
+    public void showPopulares(List<Filme> filmeList) {
         filmesAdapter.setFilmes(filmeList);
     }
 
     @Override
     public void showError(){
         Toast.makeText(this,"Erro ao obter lista de filmes",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMaisVistos(List<Filme> filmeList) {
+        maisVistosAdapter.setFilmes(filmeList);
     }
 
     @Override

@@ -8,13 +8,15 @@ public interface CatalogoContract {
 
     interface FilmeListView{
 
-        void showFilme(List<Filme> filmeList);
+        void showPopulares(List<Filme> filmeList);
         void showError();
+        void showMaisVistos(List<Filme> filmeList);
     }
 
     interface FilmeListPresenter{
 
-        void takeFilme();
+        void takePopulares();
+        void takeMaisVistos();
         void destroyView();
 
     }
