@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.itsTimeToMovie.R;
 import com.example.itsTimeToMovie.data.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -26,7 +28,7 @@ import java.io.FileNotFoundException;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editTxt_email, editTxt_senha;
-    private Button btmLogin, btmCadastrar;
+    private Button btmLogin, btmCadastrar, btmRecuperar;
     private FirebaseAuth authEmail;
 
     @Override
@@ -40,31 +42,23 @@ public class LoginActivity extends AppCompatActivity {
         btmLogin = findViewById(R.id.BttmLogin);
         btmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                loginEmail();
-            }
+            public void onClick(View v) {loginEmail();}
         });
 
-       btmCadastrar = findViewById(R.id.BttmCadastrar);
+        btmCadastrar = findViewById(R.id.BttmCadastrar);
         btmCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                cadastrar();
-            }
+            public void onClick(View v) {cadastrar();}
+        });
+
+        btmRecuperar = findViewById(R.id.recuperar);
+        btmRecuperar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {recuperarSenha();}
         });
 
         authEmail = FirebaseAuth.getInstance();
 
-    }
-
-    public void login(){
-        Intent intent = new Intent(this, Catalogo.class);
-        startActivity(intent);
-    }
-
-    public void cadastrar(){
-        Intent intent = new Intent(this, CadastrarActivity.class);
-        startActivity(intent);
     }
 
     private void loginEmail(){
@@ -97,6 +91,44 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+
+    public void login(){
+        Intent intent = new Intent(this, Catalogo.class);
+        startActivity(intent);
+    }
+
+    private void recuperarSenha(){
+        String email = editTxt_email.getText().toString().trim();
+        if(email.isEmpty()){
+            Toast.makeText(getBaseContext(),
+                    "Insira seu email para recuperar a senha",
+                    Toast.LENGTH_LONG).show();
+        } else{
+            enviarEmail(email);
+        }
+    }
+
+    private void enviarEmail(String email){
+        authEmail.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getBaseContext(), "Enviamos email para redefinição de senha",
+                        Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getBaseContext(), "Erro ao enviar email ou email inválido",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void cadastrar(){
+        Intent intent = new Intent(this, CadastrarActivity.class);
+        startActivity(intent);
     }
 
 }

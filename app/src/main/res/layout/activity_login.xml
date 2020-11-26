@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.LoginActivity"
     android:background="@color/principal">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".UI.LoginActivity"
+        android:background="@color/principal">
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
@@ -44,44 +48,65 @@
         android:hint="@string/Senha"
         android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/BttmLogin"
-        android:layout_width="124dp"
-        android:layout_height="62dp"
-        android:layout_below="@id/editSenha"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/Button"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/Logar"
-        android:textAlignment="center"
-        android:textColor="@color/letras"
-        android:textSize="16dp"
-        app:cornerRadius="16dp" />
+        <Button
+            android:id="@+id/BttmLogin"
+            android:layout_width="150dp"
+            android:layout_height="62dp"
+            android:layout_below="@id/editSenha"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/Button"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/Logar"
+            android:textAlignment="center"
+            android:textColor="@color/letras"
+            android:textSize="16dp"
+            app:cornerRadius="16dp" />
 
-    <Button
-        android:id="@+id/BttmCadastrar"
-        android:layout_width="140dp"
-        android:layout_height="62dp"
-        android:layout_toRightOf="@+id/BttmLogin"
-        android:layout_below="@+id/editSenha"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="25dp"
-        android:backgroundTint="@color/Bttn"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/Cadastrar"
-        android:textSize="16dp"
-        app:cornerRadius="16dp" />
+        <Button
+            android:id="@+id/BttmCadastrar"
+            android:layout_width="140dp"
+            android:layout_height="62dp"
+            android:layout_below="@+id/editSenha"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="98dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="25dp"
+            android:layout_toRightOf="@+id/BttmLogin"
+            android:backgroundTint="@color/Bttn"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/Cadastrar"
+            android:textSize="16dp"
+            app:cornerRadius="16dp" />
 
-    <ImageButton
+        <ImageButton
         android:id="@+id/BttmGoogle"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="46dp"
         android:layout_below="@+id/BttmLogin"
         android:layout_marginTop="25dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:src="@drawable/imagesg" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/recuperar"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/BttmGoogle"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="75dp"
+            android:backgroundTint="@color/principal"
+            android:fontFamily="@font/roboto_medium"
+            android:selectAllOnFocus="false"
+            android:shadowColor="@color/principal"
+            android:shadowRadius="0"
+            android:text="Recuperar senha"
+            android:textColor="@color/letras"
+            android:textSize="16dp" />
+
+
+    </RelativeLayout>
+
+</ScrollView>
