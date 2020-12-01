@@ -66,7 +66,7 @@ public class DetalhesFilmeActivity extends AppCompatActivity {
         String text = "itstimetomovie.com.br/filme?id=" + v.getId();
         sendIntent.putExtra(Intent.EXTRA_TEXT, text);
 
-        Drawable drawable = imagePoster.getDrawable();
+        /*Drawable drawable = imagePoster.getDrawable();
         Bitmap b = ((BitmapDrawable)drawable).getBitmap();
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/jpeg");
@@ -74,10 +74,11 @@ public class DetalhesFilmeActivity extends AppCompatActivity {
         b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(getContentResolver(), b, "Titulo da Imagem", null);
         Uri imageUri =  Uri.parse(path);
-        share.putExtra(Intent.EXTRA_STREAM, imageUri);
+        share.putExtra(Intent.EXTRA_STREAM, imageUri);*/
 
         if(sendIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(Intent.createChooser(sendIntent,"enviar para:"));
+
         } else {
             Toast.makeText(getApplicationContext(), "Erro", Toast.LENGTH_SHORT).show();
         }
