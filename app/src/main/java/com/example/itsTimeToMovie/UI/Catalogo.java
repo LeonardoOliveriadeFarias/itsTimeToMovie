@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.itsTimeToMovie.Adapters.FilmeAdapter;
@@ -22,6 +27,10 @@ public class Catalogo extends AppCompatActivity
 
     private FilmeAdapter filmesAdapter;
     private FilmeAdapter maisVistosAdapter;
+
+    SensorManager sensorManager;
+    Sensor sensor;
+    long tempoEvento;
 
 
     CatalogoContract.FilmeListPresenter presenter;
@@ -64,6 +73,12 @@ public class Catalogo extends AppCompatActivity
         rvAcao.setLayoutManager(LLM);
         rvAcao.setAdapter(maisVistosAdapter);
 
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        if (sensor == null){
+            Log.e("Sensor","SENSOR não encontrado");
+        }
+
     }
 
     @Override
@@ -92,5 +107,43 @@ public class Catalogo extends AppCompatActivity
         Intent intent = new Intent(this, DetalhesFilmeActivity.class);
         intent.putExtra(DetalhesFilmeActivity.EXTRA_FILME, filme);
         startActivity(intent);
+    }
+
+
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Log.d("sensor",sensor.getName());
+        final RecyclerView rvPopular = findViewById(R.id.recycler_popular);
+        final RecyclerView rvAcao = findViewById(R.id.recycler_mais_vistos);
+
+
+        if (sensorEvent.sensor == sensor && sensorEvent.timestamp - tempoEvento > 2000) {
+
+            String d = "";
+            float x,y,z;
+            x = sensorEvent.values[0];
+            y = sensorEvent.values[1];
+            z = sensorEvent.values[2];
+
+            for(float f: sensorEvent.values) {
+                d += f+", ";
+            }
+            if ( y > 3) {
+                Log.d("Sensor1", d);
+                rvPopular.scrollBy(300,0);
+                rvAcao.scrollBy(300,0);
+                tempoEvento = sensorEvent.timestamp;
+            } else {
+                if ( y < -3) {
+                    Log.d("Sensor2",  ""+y);
+                    rvPopular.scrollBy(-300,0);
+                    rvAcao.scrollBy(-300,0);
+                    tempoEvento = sensorEvent.timestamp;
+                }
+            }
+
+
+
+        }
+
     }
 }

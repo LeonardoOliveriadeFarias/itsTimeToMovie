@@ -29,17 +29,36 @@
             android:id="@+id/recycler_mais_vistos"
             android:layout_width="match_parent"
             android:layout_height="290dp"
-            android:layout_below="@+id/recycler_popular"
+            android:layout_below="@+id/maisVistos"
             android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/popular"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Filmes populares"
             android:textColor="@color/letras"
             android:textSize="30dp"
             />
+        <TextView
+            android:id="@+id/maisVistos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filmes mais vistos"
+            android:textColor="@color/letras"
+            android:textSize="30dp"
+            android:layout_below="@id/recycler_popular"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/popular"
+            android:layout_marginStart="25dp"
+            android:text="Lista de Favoritos"
+            android:textSize="10dp"
+            android:textColor="@color/letras"
+            android:backgroundTint="@color/Button"/>
 
 
     </RelativeLayout>

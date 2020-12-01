@@ -12,7 +12,7 @@ public class FilmeMapper {
         List<Filme> filmeList = new ArrayList<>();
 
         for (FilmeResponse filmeResponse : filmeResponseList){
-            final Filme filme = new Filme(filmeResponse.getTitle(), filmeResponse.getPosterPath(), filmeResponse.getDescription());
+            final Filme filme = new Filme(filmeResponse.getTitle(), filmeResponse.getPosterPath(), filmeResponse.getDescription(), filmeResponse.getId());
             filmeList.add(filme);
         }
 

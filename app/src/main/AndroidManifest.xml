@@ -17,7 +17,15 @@
         android:theme="@style/Theme.itstimetomovie">
         <activity android:name=".UI.CadastrarActivity"></activity>
         <activity android:name=".UI.LoginActivity" />
-        <activity android:name=".UI.DetalhesFilmeActivity" />
+        <activity android:name=".UI.DetalhesFilmeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="itstimetomovie.com.br" android:path="/categorias" android:scheme="http" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".UI.Catalogo" />
         <activity android:name=".UI.SplashScreen">
             <intent-filter>
