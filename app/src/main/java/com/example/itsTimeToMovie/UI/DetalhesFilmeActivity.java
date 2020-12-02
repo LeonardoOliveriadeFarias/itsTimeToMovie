@@ -28,7 +28,10 @@ import java.io.ByteArrayOutputStream;
 public class DetalhesFilmeActivity extends AppCompatActivity {
 
     public static final String EXTRA_FILME =  "EXTRA_FILME";
-    private Button comp;
+    private Button compLink, compImage;
+    TextView textTituloFilme;
+    ImageView imagePoster;
+    TextView textViewDescription;
 
 
     //coment
@@ -37,9 +40,9 @@ public class DetalhesFilmeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_filme);
 
-        TextView textTituloFilme = findViewById(R.id.text_filme_Title_Detail);
-        ImageView imagePoster = findViewById(R.id.imagePoster_Detail);
-        TextView textViewDescription = findViewById(R.id.description_filme);
+        textTituloFilme = findViewById(R.id.text_filme_Title_Detail);
+        imagePoster = findViewById(R.id.imagePoster_Detail);
+        textViewDescription = findViewById(R.id.description_filme);
 
         final Filme filme = (Filme) getIntent().getSerializableExtra(EXTRA_FILME);
 
@@ -50,38 +53,29 @@ public class DetalhesFilmeActivity extends AppCompatActivity {
         textViewDescription.setText(filme.getDescription());
 
 
-        comp = (Button) findViewById(R.id.Compartilhar_button);
-        comp.setOnClickListener(new View.OnClickListener(){public void onClick(View view){compLink(filme, imagePoster);}});
+        compLink = (Button) findViewById(R.id.Compartilhar_link);
+        compLink.setOnClickListener(new View.OnClickListener(){public void onClick(View view){sharedLink(filme);}});
+
+        compImage = (Button) findViewById(R.id.Compartilhar_imagem);
+        compImage.setOnClickListener(new View.OnClickListener(){public void onClick(View view){sharedImage();}});
+
+
     }
 
 
 
 
-    public void compLink(Filme v, ImageView imagePoster) {
+    public void sharedLink(Filme v) {
 
-        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        sendIntent.setType("application/json");
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Olhe este filme MARAVILHOSO!");
         sendIntent.putExtra(Intent.EXTRA_TEXT, v.getTitle());
-        sendIntent.setType("application/json");
         String text = "itstimetomovie.com.br/filme?id=" + v.getId();
         sendIntent.putExtra(Intent.EXTRA_TEXT, text);
 
-        /*Drawable drawable = imagePoster.getDrawable();
-        Bitmap b = ((BitmapDrawable)drawable).getBitmap();
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/jpeg");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(getContentResolver(), b, "Titulo da Imagem", null);
-        Uri imageUri =  Uri.parse(path);
-        share.putExtra(Intent.EXTRA_STREAM, imageUri);*/
-
-        if(sendIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(Intent.createChooser(sendIntent,"enviar para:"));
 
-        } else {
-            Toast.makeText(getApplicationContext(), "Erro", Toast.LENGTH_SHORT).show();
-        }
     }
 
 
@@ -106,7 +100,24 @@ public class DetalhesFilmeActivity extends AppCompatActivity {
     }
 
     private void sharedImage(){
+            if(imagePoster.getDrawable() != null){
 
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/jpeg");
+                BitmapDrawable drawable = (BitmapDrawable) imagePoster.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100, bytes);
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,
+                        "Poster", null);
+                Uri uri = Uri.parse(path);
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                startActivity(Intent.createChooser(intent,"compartilhar imagem"));
+
+
+            }else{
+                Toast.makeText(getBaseContext(),"Não foi possivel compartilhar imagem", Toast.LENGTH_LONG).show();
+            }
     }
 
 }
