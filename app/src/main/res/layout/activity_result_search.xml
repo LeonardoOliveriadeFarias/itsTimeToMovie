@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/resultLayout"
+    android:background="@color/principal">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/principal">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/principal">
+
+            <EditText
+                android:id="@+id/searchBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Pesquisar filme" />
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/searchBar"
+                android:layout_marginStart="50dp"
+                android:text="Submit"
+                android:textColor="@color/letras"
+                android:backgroundTint="@color/Button"
+                android:textSize="15dp"
+                />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_result"
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:layout_below="@+id/results"
+                android:layout_marginTop="50dp"
+                android:scrollbars="horizontal" />
+
+            <TextView
+                android:id="@+id/results"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resultado da pesquisa"
+                android:textColor="@color/letras"
+                android:textSize="30dp"
+                android:layout_below="@+id/searchBar"
+                android:layout_marginTop="25dp"
+                />
+        </RelativeLayout>
+    </ScrollView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

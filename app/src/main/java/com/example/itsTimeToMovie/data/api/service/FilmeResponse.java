@@ -1,4 +1,4 @@
-package com.example.itsTimeToMovie.data.api.response;
+package com.example.itsTimeToMovie.data.api.service;
 
 import com.squareup.moshi.Json;
 
@@ -35,5 +35,6 @@ public class FilmeResponse {
     public String getDescription() {return description;}
 
     public int getId(){return id;}
+
 }
 

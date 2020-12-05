@@ -11,13 +11,16 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.itsTimeToMovie.Adapters.FilmeAdapter;
+import com.example.itsTimeToMovie.data.Model.Favorite;
 import com.example.itsTimeToMovie.data.api.contract.CatalogoContract;
 import com.example.itsTimeToMovie.data.Model.Filme;
 import com.example.itsTimeToMovie.R;
-import com.example.itsTimeToMovie.data.api.contract.presenter.FilmePopularPresenter;
+import com.example.itsTimeToMovie.data.api.presenter.CatalogoPresenter;
 
 import java.util.List;
 
@@ -27,6 +30,7 @@ public class Catalogo extends AppCompatActivity
 
     private FilmeAdapter filmesAdapter;
     private FilmeAdapter maisVistosAdapter;
+    private Button favoriteBttn, searchBttn;
 
     SensorManager sensorManager;
     Sensor sensor;
@@ -41,23 +45,17 @@ public class Catalogo extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo);
 
-
-        //configToolbar();
         configAdapter();
+        favoriteBttn = (Button) findViewById(R.id.favorite_bttn);
+        favoriteBttn.setOnClickListener(new View.OnClickListener(){public void onClick(View view){favoriteListStart();}});
+        searchBttn = (Button) findViewById(R.id.searchBttn);
+        searchBttn.setOnClickListener(new View.OnClickListener(){public void onClick(View view){searchFilm();}});
 
-
-        presenter = new FilmePopularPresenter(this);
+        presenter = new CatalogoPresenter(this);
         presenter.takePopulares();
         presenter.takeMaisVistos();
     }
 
-    /*private void configToolbar(){
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    private void setSupportActionBar(Toolbar toolbar) {
-    }*/
 
     private void configAdapter(){
         final RecyclerView rvPopular = findViewById(R.id.recycler_popular);
@@ -140,10 +138,17 @@ public class Catalogo extends AppCompatActivity
                     tempoEvento = sensorEvent.timestamp;
                 }
             }
-
-
-
         }
-
     }
+
+    public void favoriteListStart(){
+        Intent intent = new Intent(this, Favorite.class);
+        startActivity(intent);
+    }
+
+    public void searchFilm(){
+        Intent intent = new Intent(this, ResultSearchActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -1,10 +1,10 @@
-package com.example.itsTimeToMovie.data.api.contract.presenter;
+package com.example.itsTimeToMovie.data.api.presenter;
 
 import com.example.itsTimeToMovie.data.api.contract.CatalogoContract;
 import com.example.itsTimeToMovie.data.Model.Filme;
 import com.example.itsTimeToMovie.data.mapper.FilmeMapper;
-import com.example.itsTimeToMovie.data.api.ApiService;
-import com.example.itsTimeToMovie.data.api.results.FilmesResult;
+import com.example.itsTimeToMovie.data.api.service.ApiService;
+import com.example.itsTimeToMovie.data.api.service.FilmesResult;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FilmePopularPresenter implements CatalogoContract.FilmeListPresenter {
+public class CatalogoPresenter implements CatalogoContract.FilmeListPresenter {
 
     private CatalogoContract.FilmeListView view;
 
-    public FilmePopularPresenter(CatalogoContract.FilmeListView view){
+    public CatalogoPresenter(CatalogoContract.FilmeListView view){
         this.view = view;
     }
 
@@ -29,7 +29,7 @@ public class FilmePopularPresenter implements CatalogoContract.FilmeListPresente
                     public void onResponse(Call<FilmesResult> call, Response<FilmesResult> response) {
                         if(response.isSuccessful()){
                             final List<Filme> filmeList = FilmeMapper
-                                    .responseToDomain(response.body().getResultadoFilmes());
+                                    .responseToDomainList(response.body().getResultadoFilmes());
 
                             view.showPopulares(filmeList);
                         }else {
@@ -51,7 +51,7 @@ public class FilmePopularPresenter implements CatalogoContract.FilmeListPresente
                         public void onResponse(Call<FilmesResult> call, Response<FilmesResult> response) {
                             if(response.isSuccessful()){
                                 final List<Filme> filmeList = FilmeMapper
-                                        .responseToDomain(response.body().getResultadoFilmes());
+                                        .responseToDomainList(response.body().getResultadoFilmes());
 
                                 view.showMaisVistos(filmeList);
                             }else {

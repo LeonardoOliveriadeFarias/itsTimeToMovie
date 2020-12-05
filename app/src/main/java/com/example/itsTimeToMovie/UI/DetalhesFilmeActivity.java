@@ -1,17 +1,17 @@
 package com.example.itsTimeToMovie.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -20,21 +20,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.itsTimeToMovie.R;
+import com.example.itsTimeToMovie.data.Model.Favorite;
 import com.example.itsTimeToMovie.data.Model.Filme;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-public class DetalhesFilmeActivity extends AppCompatActivity {
+public class DetalhesFilmeActivity extends AppCompatActivity{
+
 
     public static final String EXTRA_FILME =  "EXTRA_FILME";
-    private Button compLink, compImage;
+
+    private Button compLink, favorite;
+    private Filme filme;
+    private Context context ;
+
+
     TextView textTituloFilme;
     ImageView imagePoster;
     TextView textViewDescription;
 
 
-    //coment
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,80 +54,109 @@ public class DetalhesFilmeActivity extends AppCompatActivity {
         imagePoster = findViewById(R.id.imagePoster_Detail);
         textViewDescription = findViewById(R.id.description_filme);
 
-        final Filme filme = (Filme) getIntent().getSerializableExtra(EXTRA_FILME);
 
-        textTituloFilme.setText(filme.getTitle());
-        Picasso.get()
-                .load("https://image.tmdb.org/t/p/w342/" + filme.getPosterPath())
-                .into(imagePoster);
-        textViewDescription.setText(filme.getDescription());
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
 
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("*/*".equals(type)) {
+                Uri arqUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                if (arqUri != null) {
+                    try {
+                        FileInputStream fis;
+                        fis = openFileInput(arqUri.getPath());
+                        fis.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        return;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                }
+            }
+        } else {
+            final Filme filme = (Filme) getIntent().getSerializableExtra(EXTRA_FILME);
+
+            textTituloFilme.setText(filme.getTitle());
+            Picasso.get()
+                    .load("https://image.tmdb.org/t/p/w342/" + filme.getPosterPath())
+                    .into(imagePoster);
+            textViewDescription.setText(filme.getDescription());
+        }
 
         compLink = (Button) findViewById(R.id.Compartilhar_link);
-        compLink.setOnClickListener(new View.OnClickListener(){public void onClick(View view){sharedLink(filme);}});
-
-        compImage = (Button) findViewById(R.id.Compartilhar_imagem);
-        compImage.setOnClickListener(new View.OnClickListener(){public void onClick(View view){sharedImage();}});
-
-
+        compLink.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){checarPermissao();}
+        });
     }
 
 
 
 
-    public void sharedLink(Filme v) {
+    public void sharedLink(Filme filme) {
+        filme =  (Filme) getIntent().getSerializableExtra(EXTRA_FILME);
+        imagePoster = findViewById(R.id.imagePoster_Detail);
+        Drawable drawable = imagePoster.getDrawable();
+        Bitmap b = ((BitmapDrawable)drawable).getBitmap();
 
-        Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-        sendIntent.setType("application/json");
-        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Olhe este filme MARAVILHOSO!");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, v.getTitle());
-        String text = "itstimetomovie.com.br/filme?id=" + v.getId();
-        sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+        Intent share = new Intent(Intent.ACTION_SEND);
 
-            startActivity(Intent.createChooser(sendIntent,"enviar para:"));
+        share.setType("*/*");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 
-    }
+        b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), b, "Titulo da Imagem", null);
+        Uri imageUri =  Uri.parse(path);
 
+        share.putExtra(Intent.EXTRA_STREAM, imageUri);
+        share.putExtra(Intent.EXTRA_TEXT, "http://itstimetomovie.edu.br?id="+filme.getId());
 
-
-    public void enviarWhatsApp(View v) {
-        PackageManager pm=getPackageManager();
-        try {
-
-            Intent waIntent = new Intent(Intent.ACTION_SEND);
-            waIntent.setType("text/plain");
-            String text = "itstimetomovie.com.br/filme?id=" + v.getId();
-
-            PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-            waIntent.setPackage("com.whatsapp");
-
-            waIntent.putExtra(Intent.EXTRA_TEXT, text);
-            startActivity(waIntent);
-
-        } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(this, "WhatsApp não instalado", Toast.LENGTH_SHORT).show();
+        if(share.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(share, "Selecione"));
+        } else {
+            Toast.makeText(getApplicationContext(), "falhou", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void sharedImage(){
-            if(imagePoster.getDrawable() != null){
+    private static final int SOLICITAR_PERMISSAO = 1;
+    private void checarPermissao(){
+        // Verifica  o estado da permissão de WRITE_EXTERNAL_STORAGE
+        int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            // Se for diferente de PERMISSION_GRANTED, então vamos exibir a tela padrão
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, SOLICITAR_PERMISSAO);
+            } else {
+            // Senão vamos compartilhar a imagem
+            sharedLink(filme);
+        }
 
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("image/jpeg");
-                BitmapDrawable drawable = (BitmapDrawable) imagePoster.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,100, bytes);
-                String path = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,
-                        "Poster", null);
-                Uri uri = Uri.parse(path);
-                intent.putExtra(Intent.EXTRA_STREAM, uri);
-                startActivity(Intent.createChooser(intent,"compartilhar imagem"));
-
-
-            }else{
-                Toast.makeText(getBaseContext(),"Não foi possivel compartilhar imagem", Toast.LENGTH_LONG).show();
-            }
     }
 
+
+
+    public void removeFavorite(View view) {
+        new Thread() {
+            @Override
+            public void run() {
+                context = DetalhesFilmeActivity.this;
+                Favorite favorite = new Favorite(context);
+                favorite.remove(filme);
+            }
+        }.start();
+    }
+
+
+    public void addFavorite(View view) {
+        new Thread() {
+            @Override
+            public void run() {
+                context = DetalhesFilmeActivity.this;
+                Favorite favorite = new Favorite(context);
+                favorite.add(filme);
+            }
+        }.start();
+    }
 }

@@ -8,4 +8,7 @@
     <string name="DigiSenha">Digite a senha</string>
     <string name="DigiEmail">Digite seu email</string>
     <string name="Limpar">Limpar</string>
+    <string name="preference_usuario_key">PREFERENCE_USUARIO_KEY</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

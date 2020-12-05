@@ -1,6 +1,6 @@
-package com.example.itsTimeToMovie.data.api.results;
+package com.example.itsTimeToMovie.data.api.service;
 
-import com.example.itsTimeToMovie.data.api.response.FilmeResponse;
+
 import com.squareup.moshi.Json;
 
 import java.util.List;

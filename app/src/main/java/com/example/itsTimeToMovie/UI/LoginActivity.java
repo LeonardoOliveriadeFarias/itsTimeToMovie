@@ -3,7 +3,9 @@ package com.example.itsTimeToMovie.UI;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.itsTimeToMovie.R;
+import com.example.itsTimeToMovie.data.Model.Login;
+import com.example.itsTimeToMovie.data.Model.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -34,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton btmLoginGoogle;
     private FirebaseAuth authEmail;
     private FirebaseAuth authGoogle;
+    private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
 
@@ -94,6 +99,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginConfirm(String email, String senha){
+        Login login = new Login(getApplicationContext());
+        User user = new User(email,senha);
         authEmail.signInWithEmailAndPassword(email,senha).addOnCompleteListener(
                 this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+        SharedPreferences sp =
+                getSharedPreferences(getString(R.string.preference_usuario_key), Context.MODE_PRIVATE);
     }
 
     public void login(){
@@ -196,5 +205,16 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private boolean userConnected(){
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        if(currentUser == null){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }

@@ -34,6 +34,7 @@
 
         <TextView
             android:id="@+id/popular"
+            android:layout_below="@id/favorite_bttn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Filmes populares"
@@ -51,11 +52,21 @@
             />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/popular"
-            android:layout_marginStart="25dp"
+            android:id="@+id/favorite_bttn"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
             android:text="Lista de Favoritos"
+            android:textSize="10dp"
+            android:textColor="@color/letras"
+            android:backgroundTint="@color/Button"/>
+        <Button
+            android:id="@+id/searchBttn"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/favorite_bttn"
+            android:layout_marginStart="25dp"
+            android:text="procurar filme"
             android:textSize="10dp"
             android:textColor="@color/letras"
             android:backgroundTint="@color/Button"/>

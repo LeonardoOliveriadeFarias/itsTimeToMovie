@@ -1,4 +1,4 @@
-package com.example.itsTimeToMovie.data.api;
+package com.example.itsTimeToMovie.data.api.service;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
