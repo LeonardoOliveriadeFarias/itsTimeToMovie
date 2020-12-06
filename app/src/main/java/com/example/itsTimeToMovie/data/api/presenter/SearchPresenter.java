@@ -20,10 +20,10 @@ public class SearchPresenter implements SearchContract.SearchPreseter {
     public SearchPresenter(SearchContract.SearchView view) {this.view = view;}
 
     @Override
-    public void takeMovies(String title) {
+    public void takeMovies(String titleFilme) {
 
         ApiService.getInstance()
-                .searchMovies("b62a2397c0144943747e51552d1229", title)
+                .searchMovies("16b62a2397c0144943747e51552d1229", titleFilme)
                 .enqueue(new Callback<FilmesResult>() {
                     @Override
                     public void onResponse(Call<FilmesResult> call, Response<FilmesResult> response) {

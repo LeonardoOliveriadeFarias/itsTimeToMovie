@@ -1,6 +1,7 @@
 package com.example.itsTimeToMovie.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,38 +40,34 @@ implements SearchContract.SearchView,
 
         searchBar = findViewById(R.id.searchBar);
         submit = (Button) findViewById(R.id.submit);
-        if(submit.isClickable()){
-            String search = searchBar.getText().toString();
-            configAdapter();
-
-            presenter = new SearchPresenter(this);
-            presenter.takeMovies(search);
-        }
 
 
 
+        configAdapter();
     }
 
     @Override
     public void onItemFilmeClicked(Filme filme) {
-
+        Intent intent = new Intent(this, DetalhesFilmeActivity.class);
+        intent.putExtra(DetalhesFilmeActivity.EXTRA_FILME, filme);
+        startActivity(intent);
     }
 
     private void configAdapter(){
         final RecyclerView result = findViewById(R.id.recycler_result);
 
         adapter = new FilmeAdapter(this);
-        RecyclerView.LayoutManager LLM = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
-        result.setLayoutManager(LLM);
+        RecyclerView.LayoutManager GLM = new GridLayoutManager(this,2);
+        result.setLayoutManager(GLM);
         result.setAdapter(adapter);
     }
 
 
 
-    public void onItemFilmeClick(Filme filme) {
-        Intent intent = new Intent(this, DetalhesFilmeActivity.class);
-        intent.putExtra(DetalhesFilmeActivity.EXTRA_FILME, filme);
-        startActivity(intent);
+    public void onClickSearch(View v){
+        String search = searchBar.getText().toString();
+        presenter = new SearchPresenter(this);
+        presenter.takeMovies(search);
     }
 
     @Override

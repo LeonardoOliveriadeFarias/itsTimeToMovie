@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Pesquisar filme" />
+                android:hint="Pesquisar"/>
             <Button
                 android:id="@+id/submit"
                 android:layout_width="wrap_content"
@@ -29,6 +29,7 @@
                 android:layout_toRightOf="@+id/searchBar"
                 android:layout_marginStart="50dp"
                 android:text="Submit"
+                android:onClick="onClickSearch"
                 android:textColor="@color/letras"
                 android:backgroundTint="@color/Button"
                 android:textSize="15dp"
@@ -38,7 +39,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_result"
                 android:layout_width="match_parent"
-                android:layout_height="290dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/results"
                 android:layout_marginTop="50dp"
                 android:scrollbars="horizontal" />

@@ -7,7 +7,7 @@ public class FilmeResponse {
     @Json(name = "poster_path")
     private final String posterPath;
 
-    @Json(name = "original_title")
+    @Json(name = "title")
     private final String title;
 
     @Json(name = "overview")

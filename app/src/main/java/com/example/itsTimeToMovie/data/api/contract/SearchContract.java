@@ -12,7 +12,7 @@ public interface SearchContract {
     }
 
     interface SearchPreseter{
-        void takeMovies(String title);
+        void takeMovies(String titleFilme);
         void destroyView();
     }
 }

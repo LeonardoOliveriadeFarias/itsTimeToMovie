@@ -60,22 +60,8 @@ public class DetalhesFilmeActivity extends AppCompatActivity{
         String type = intent.getType();
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
-            if ("*/*".equals(type)) {
-                Uri arqUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-                if (arqUri != null) {
-                    try {
-                        FileInputStream fis;
-                        fis = openFileInput(arqUri.getPath());
-                        fis.close();
-
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                        return;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return;
-                    }
-                }
+            if ("aplication/json".equals(type)) {
+                handleSendText(intent);
             }
         } else {
             final Filme filme = (Filme) getIntent().getSerializableExtra(EXTRA_FILME);
@@ -91,6 +77,8 @@ public class DetalhesFilmeActivity extends AppCompatActivity{
         compLink.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){checarPermissao();}
         });
+
+
     }
 
 
@@ -158,5 +146,17 @@ public class DetalhesFilmeActivity extends AppCompatActivity{
                 favorite.add(filme);
             }
         }.start();
+    }
+
+    void handleSendText(Intent intent) {
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        final Filme filme = (Filme) getIntent().getSerializableExtra(EXTRA_FILME);
+        if (sharedText != null) {
+            textTituloFilme.setText(filme.getTitle());
+            Picasso.get()
+                    .load("https://image.tmdb.org/t/p/w342/" + filme.getPosterPath())
+                    .into(imagePoster);
+            textViewDescription.setText(filme.getDescription());
+        }
     }
 }

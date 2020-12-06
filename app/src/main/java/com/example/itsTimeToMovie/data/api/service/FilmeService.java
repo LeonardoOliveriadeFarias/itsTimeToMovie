@@ -24,9 +24,8 @@ public interface FilmeService {
 
             @Query("api_key") String chaveApi);
 
-    @GET("/search/movie")
+    @GET("search/movie")
     Call<FilmesResult> searchMovies(
-
             @Query("api_key") String chaveApi,
             @Query("query") String titleFilme);
 }

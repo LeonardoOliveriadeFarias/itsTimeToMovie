@@ -19,10 +19,4 @@ public class FilmeMapper {
 
         return filmeList;
     }
-
-    public static Filme responseToDomainFilme(FilmeResponse filmeResponse){
-        final Filme filme = new Filme(filmeResponse.getTitle(),filmeResponse.getPosterPath(),filmeResponse.getDescription(),filmeResponse.getId());
-        return filme;
-    }
-
 }

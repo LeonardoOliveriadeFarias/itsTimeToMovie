@@ -37,7 +37,7 @@
 
                 <data
                     android:host="itstimetomovie.com.br"
-                    android:path="/categorias"
+                    android:path="/filme"
                     android:scheme="http" />
             </intent-filter>
         </activity>
