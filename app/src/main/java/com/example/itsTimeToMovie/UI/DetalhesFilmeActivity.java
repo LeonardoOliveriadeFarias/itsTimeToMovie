@@ -34,7 +34,7 @@ public class DetalhesFilmeActivity extends AppCompatActivity{
 
     public static final String EXTRA_FILME =  "EXTRA_FILME";
 
-    private Button compLink, favorite;
+    private Button compLink;
     private Filme filme;
     private Context context ;
 
@@ -111,13 +111,10 @@ public class DetalhesFilmeActivity extends AppCompatActivity{
 
     private static final int SOLICITAR_PERMISSAO = 1;
     private void checarPermissao(){
-        // Verifica  o estado da permissão de WRITE_EXTERNAL_STORAGE
         int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            // Se for diferente de PERMISSION_GRANTED, então vamos exibir a tela padrão
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, SOLICITAR_PERMISSAO);
             } else {
-            // Senão vamos compartilhar a imagem
             sharedLink(filme);
         }
 
